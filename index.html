@@ -8,22 +8,27 @@
   </head>
   <body>
     <header class="wrapper">
-      <div class="header__title">
+      <div class="header__ttl">
         <h2>【 ToDoリスト 】</h2>
       </div>
     </header>
 
-    <div class="register-box">
-      <input type="text" placeholder="タイトル" maxlength="25" />
-      <button>登録する</button>
+    <div id="js-add-form" class="register-box">
+      <input
+        id="js-todo-ttl"
+        type="text"
+        placeholder="タイトル"
+        maxlength="25"
+      />
+      <button id="js-register-btn">登録する</button>
     </div>
 
     <div class="container">
       <div class="task-box box">
         <h3>UnDo</h3>
-        <ul class="lists">
+        <ul id="js-todo-list" class="lists">
           <li class="list">
-            start task!
+            <p>start task!</p>
             <div class="buttons">
               <button>完了</button>
               <button>削除</button>
@@ -33,9 +38,9 @@
       </div>
       <div class="complete-box box">
         <h3>Done</h3>
-        <ul class="lists">
+        <ul id="js-done-list" class="lists">
           <li class="list">
-            start complete!
+            <p>start complete!</p>
             <div class="buttons">
               <button>戻す</button>
               <button>削除</button>
