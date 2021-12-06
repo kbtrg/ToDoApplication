@@ -1,16 +1,32 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Parcel Sandbox</title>
+    <title>ToDoApplication</title>
     <meta charset="UTF-8" />
     <title>first scss</title>
     <link rel="stylesheet" href="src/sass/main.scss" />
   </head>
   <body>
     <div class="container">
-      <a href="#" class="btn btn-white btn-animated">login</a>
-      <a href="#" class="btn-text">sign up</a>
+      <div class="header__title">
+        <h2>ToDoリスト</h2>
+      </div>
+      <div class="task-box">
+        <ul class="tasks">
+          <li class="task">start task!</li>
+          <button>完了</button>
+          <button>削除</button>
+        </ul>
+      </div>
+      <div class="complete-box">
+        <ul class="completes">
+          <li class="complete">start complete!</li>
+          <button>戻す</button>
+          <button>削除</button>
+        </ul>
+      </div>
+      <button class="add-btn">+</button>
     </div>
-    <!-- <script src="src/index.js"></script> -->
+    <script src="src/index.js"></script>
   </body>
 </html>

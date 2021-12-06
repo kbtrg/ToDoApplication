@@ -1,11 +1,6 @@
 
-@import './layout/container';
-@import './abstracts/variables';
 // base
 @import "./base/base";
-@import "./base/animations";
-@import "./base/typography";
 @import "./base/utilities";
 // components
-@import './components/button';
-@import './components/text-button'
+@import './components/box';
