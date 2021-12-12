@@ -1,29 +1,27 @@
-.box{
-  margin: 3vw;
-  padding: 10px;
-  width: 50%;
-}
 .container{
+  margin:　10px auto;
   width: 100vw;
   display: flex;
+  .box{
+    margin: 3%;
+    padding: 10px;
+    width: 45%;
+  }
   .task-box{
     background: #dfd;
   }
-  .complete-box{
+  .done-box{
     background: #ddf;
   }
-  .lists{
-    .list{
-      font-size: 1.2rem;
-      display: flex;
-      justify-content: space-between;
-      background: #fff;
-      margin: 5px 0;
-    }
-    button{
-      margin: 0 3px;
-      font-size: 0.5rem;
-    }
-
+  .list{
+    font-size: 1.2rem;
+    display: flex;
+    justify-content: space-between;
+    background: #fff;
+    margin: 5px 0;
+  }
+  button{
+    margin: 0 3px;
+    font-size: 0.5rem;
   }
 }

@@ -18,35 +18,22 @@
         id="js-todo-ttl"
         type="text"
         placeholder="タイトル"
-        maxlength="25"
+        maxlength="20"
       />
       <button id="js-register-btn">登録する</button>
+    </div>
+    <div class="add-error-mes js-add-error-mes-none">
+      テキストを入力してください。
     </div>
 
     <div class="container">
       <div class="task-box box">
         <h3>UnDo</h3>
-        <ul id="js-todo-list" class="lists">
-          <li class="list">
-            <p>start task!</p>
-            <div class="buttons">
-              <button class="js-done-btn">完了</button>
-              <button class="js-delete-btn">削除</button>
-            </div>
-          </li>
-        </ul>
+        <ul id="js-todo-list" class="lists"></ul>
       </div>
-      <div class="complete-box box">
+      <div class="done-box box">
         <h3>Done</h3>
-        <ul id="js-done-list" class="lists">
-          <li class="list">
-            <p>start complete!</p>
-            <div class="buttons">
-              <button class="js-return-btn">戻す</button>
-              <button class="js-delete-btn">削除</button>
-            </div>
-          </li>
-        </ul>
+        <ul id="js-done-list" class="lists"></ul>
       </div>
     </div>
 

@@ -2,12 +2,48 @@ const taskValue = document.getElementById("js-todo-ttl"); //入力情報取得
 const taskAddBtn = document.getElementById("js-register-btn"); //「登録する」ボタン
 const todoList = document.getElementById("js-todo-list"); //ulタグ取得
 const doneList = document.getElementById("js-done-list"); //ulタグ取得
+const addErrorMes = document.getElementsByClassName("add-error-mes"); //テキストエラーメッセージ
 
+/* ストレージデータ用の変数 */
+const storage = localStorage;
+let dataList = [];
+
+/* ストレージデータの読み込み */
+document.addEventListener("DOMContentLoaded", () => {
+  // 1. ストレージデータ（JSON）の読み込み
+  const json = storage.todoList;
+  if (json === undefined) {
+    return; //ストレージにデータがない場合、何もしない
+  }
+  // 2. JSONをオブジェクトの配列に変換して配列listに代入
+  dataList = JSON.parse(json);
+  // 3. 配列listのデータを元にテーブルに要素を追加
+  for (const item of dataList) {
+    addTask(item);
+  }
+});
+
+/* 登録するボタンのイベント */
 taskAddBtn.addEventListener("click", (event) => {
   event.preventDefault();
-  const task = taskValue.value;
-  addTask(task);
-  taskValue.value = ""; //入力値の初期化
+  //
+  /* ローカルストレージで保存 */
+  //今は登録するボタン押下時に実行されるが、
+  //あとでリロード時、ブラウザ終了時に実行されるように書き換える.
+  const item = {};
+  item.undo = todoList.getElementsByTagName("p").value;
+  item.done = doneList.getElementsByTagName("p").value;
+  dataList.push(item);
+  storage.todoList = JSON.stringify(dataList);
+  //
+  if (taskValue.value !== "") {
+    //addErrorMes.classList.add("js-add-error-mes-none");
+    const task = taskValue.value;
+    addTask(task);
+    taskValue.value = ""; //入力値の初期化
+  } else {
+    //addErrorMes.classList.remove("js-add-error-mes-none");
+  }
 });
 
 //登録メソッド
