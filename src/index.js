@@ -34,7 +34,8 @@ taskAddBtn.addEventListener("click", (event) => {
   item.undo = todoList.getElementsByTagName("p").value;
   item.done = doneList.getElementsByTagName("p").value;
   dataList.push(item);
-  storage.todoList = JSON.stringify(dataList);
+  storage.setItem("todoList", JSON.stringify(dataList));
+  console.log(dataList);
   //
   if (taskValue.value !== "") {
     //addErrorMes.classList.add("js-add-error-mes-none");
