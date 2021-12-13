@@ -5,7 +5,7 @@ const doneList = document.getElementById("js-done-list"); //ulタグ取得
 const addErrorMes = document.getElementsByClassName("add-error-mes"); //テキストエラーメッセージ
 
 /* ストレージデータ用の変数 */
-const storage = localStorage;
+const storage = localStorage; //localStorageをstorageに代入
 let dataList = [];
 
 /* ストレージデータの読み込み */
