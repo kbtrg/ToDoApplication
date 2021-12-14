@@ -11,8 +11,6 @@ let parseList = {}; //パース先の空オブジェクト
 
 /* ストレージデータの読み込み */
 document.addEventListener("DOMContentLoaded", (event) => {
-  console.log("loading test."); //呼び出されない...
-
   // 1. ストレージデータ（JSON）の読み込み
   const json = storage.todoList;
   console.log(json);
@@ -23,10 +21,11 @@ document.addEventListener("DOMContentLoaded", (event) => {
   parseList = JSON.parse(json);
   // 3. parseListのデータを元にDOMの構築
   for (let i = 0; i < parseList.undo.length; i++) {
-    addTask(parseList.undo[i]);
+    addTask(parseList.undo[i].closest("p").textContent);
   }
   for (let i = 0; i < parseList.done.length; i++) {
-    doneTask(parseList.done[i]);
+    addTask(parseList.done[i].closest("p").textContent);
+    doneTask(parseList.done[i].closest(".js-done-btn"));
   }
 });
 
@@ -49,13 +48,13 @@ taskAddBtn.addEventListener("click", (event) => {
     undo: [],
     done: []
   };
-  const todoItems = todoList.getElementsByTagName("p");
+  const todoItems = todoList.getElementsByTagName("li");
   for (let i = 0; i < todoItems.length; i++) {
-    item.undo[i] = todoItems[i].textContent;
+    item.undo[i] = todoItems[i];
   }
-  const doneItems = doneList.getElementsByTagName("p");
+  const doneItems = doneList.getElementsByTagName("li");
   for (let i = 0; i < doneItems.length; i++) {
-    item.done[i] = doneItems[i].textContent;
+    item.done[i] = doneItems[i];
   }
   storage.setItem("todoList", JSON.stringify(item));
   //
