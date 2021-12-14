@@ -1,42 +1,38 @@
+/* 先に取得しておくデータ群 */
 const taskValue = document.getElementById("js-todo-ttl"); //入力情報取得
 const taskAddBtn = document.getElementById("js-register-btn"); //「登録する」ボタン
 const todoList = document.getElementById("js-todo-list"); //ulタグ取得
 const doneList = document.getElementById("js-done-list"); //ulタグ取得
-const addErrorMes = document.getElementsByClassName("add-error-mes"); //テキストエラーメッセージ
+//const addErrorMes = document.getElementsByClassName("add-error-mes"); //テキストエラーメッセージ
 
 /* ストレージデータ用の変数 */
 const storage = localStorage; //localStorageをstorageに代入
-let dataList = [];
+let parseList = {}; //パース先の空オブジェクト
 
 /* ストレージデータの読み込み */
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", (event) => {
+  console.log("loading test."); //呼び出されない...
+
   // 1. ストレージデータ（JSON）の読み込み
   const json = storage.todoList;
+  console.log(json);
   if (json === undefined) {
     return; //ストレージにデータがない場合、何もしない
   }
-  // 2. JSONをオブジェクトの配列に変換して配列listに代入
-  dataList = JSON.parse(json);
-  // 3. 配列listのデータを元にテーブルに要素を追加
-  for (const item of dataList) {
-    addTask(item);
+  // 2. jsonのオブジェクトをパース
+  parseList = JSON.parse(json);
+  // 3. parseListのデータを元にDOMの構築
+  for (let i = 0; i < parseList.undo.length; i++) {
+    addTask(parseList.undo[i]);
+  }
+  for (let i = 0; i < parseList.done.length; i++) {
+    doneTask(parseList.done[i]);
   }
 });
 
 /* 登録するボタンのイベント */
 taskAddBtn.addEventListener("click", (event) => {
   event.preventDefault();
-  //
-  /* ローカルストレージで保存 */
-  //今は登録するボタン押下時に実行されるが、
-  //あとでリロード時、ブラウザ終了時に実行されるように書き換える.
-  const item = {};
-  item.undo = todoList.getElementsByTagName("p").value;
-  item.done = doneList.getElementsByTagName("p").value;
-  dataList.push(item);
-  storage.setItem("todoList", JSON.stringify(dataList));
-  console.log(dataList);
-  //
   if (taskValue.value !== "") {
     //addErrorMes.classList.add("js-add-error-mes-none");
     const task = taskValue.value;
@@ -45,6 +41,24 @@ taskAddBtn.addEventListener("click", (event) => {
   } else {
     //addErrorMes.classList.remove("js-add-error-mes-none");
   }
+
+  /* ローカルストレージで保存 */
+  //今は登録するボタン押下時に実行されるが、
+  //あとでリロード時、ブラウザ終了時に実行されるように書き換える.
+  const item = {
+    undo: [],
+    done: []
+  };
+  const todoItems = todoList.getElementsByTagName("p");
+  for (let i = 0; i < todoItems.length; i++) {
+    item.undo[i] = todoItems[i].textContent;
+  }
+  const doneItems = doneList.getElementsByTagName("p");
+  for (let i = 0; i < doneItems.length; i++) {
+    item.done[i] = doneItems[i].textContent;
+  }
+  storage.setItem("todoList", JSON.stringify(item));
+  //
 });
 
 //登録メソッド
