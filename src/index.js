@@ -59,6 +59,7 @@ taskAddBtn.addEventListener("click", (event) => {
     item.done[i] = doneItems[i];
   }
   console.log(item);
+  console.log(JSON.stringify(item));
   storage.setItem("todoList", JSON.stringify(item));
 
 
