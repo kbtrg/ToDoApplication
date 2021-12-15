@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ToDoApplication</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <header class="wrapper">
+      <div class="header__ttl">
+        <h2>【 ToDoリスト 】</h2>
+      </div>
+    </header>
+
+    <div id="js-add-form" class="register-box">
+      <input
+        id="js-todo-ttl"
+        type="text"
+        placeholder="タイトル"
+        maxlength="20"
+      />
+      <button id="js-register-btn">登録する</button>
+    </div>
+    <div class="add-error-mes js-add-error-mes-none">
+      テキストを入力してください。
+    </div>
+
+    <div class="container">
+      <div class="task-box box">
+        <h3>UnDo</h3>
+        <ul id="js-todo-list" class="lists"></ul>
+      </div>
+      <div class="done-box box">
+        <h3>Done</h3>
+        <ul id="js-done-list" class="lists"></ul>
+      </div>
+    </div>
+
+    <script src="src/index.js"></script>
+  </body>
+</html>

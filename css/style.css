@@ -1,0 +1,82 @@
+@charset "UTF-8";
+html {
+  font-size: 62.5%;
+}
+
+body {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  background: #fffbf0;
+}
+
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: inherit;
+          box-sizing: inherit;
+}
+
+ul, li {
+  list-style: none;
+}
+
+a {
+  cursor: pointer;
+}
+
+.container {
+  margin: 　10px auto;
+  width: 100vw;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+.container .box {
+  margin: 3%;
+  padding: 10px;
+  width: 45%;
+}
+.container .task-box {
+  background: #dfd;
+}
+.container .done-box {
+  background: #ddf;
+}
+.container .list {
+  font-size: 1.2rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  background: #fff;
+  margin: 5px 0;
+}
+.container button {
+  margin: 0 3px;
+  font-size: 0.5rem;
+}
+
+.register-box {
+  text-align: center;
+}
+
+.add-error-mes {
+  color: red;
+  text-align: center;
+}
+
+.js-add-error-mes-none {
+  display: none;
+}
+
+.header__ttl {
+  background: #ddd;
+  margin: 20px 0;
+}/*# sourceMappingURL=main.css.map */
