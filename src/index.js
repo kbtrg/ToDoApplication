@@ -18,14 +18,14 @@ document.addEventListener("DOMContentLoaded", (event) => {
   }
   // 2. jsonのオブジェクトをパース
   parseList = JSON.parse(json);
+  console.log(parseList.undo);
   // 3. parseListのデータを元にDOMの構築
-  
   for (let i = 0; i < parseList.undo.length; i++) {
-    addTask(parseList.undo[i].closest("p").textContent); //Undoリストに入れる
+    addTask(parseList.undo[i]); //Undoリストに入れる
   }
   for (let i = 0; i < parseList.done.length; i++) {
-    addTask(parseList.done[i].closest("p").textContent); //一旦Undoリストに入れて、、
-    doneTask(parseList.done[i].closest(".js-done-btn")); //Doneリストに送る
+    addTask(parseList.done[i]); //一旦Undoリストに入れて、、
+    //doneTask(parseList.done[i].closest(".js-done-btn")); //Doneリストに送る
   }
 });
 
@@ -44,29 +44,31 @@ taskAddBtn.addEventListener("click", (event) => {
   /* ローカルストレージで保存 */
   //今は登録するボタン押下時に実行されるが、
   //あとでリロード時、ブラウザ終了時に実行されるように書き換える.
+
+  //DOMとしてjsonに書き込むことは出来なそう...
   const item = {
     undo: [],
     done: []
   };
- 
-  const todoItems = todoList.getElementsByTagName("li");
+  
+  
+  const todoItems = todoList.getElementsByTagName("p");
   for (let i = 0; i < todoItems.length; i++) {
-    item.undo[i] = todoItems[i];
+    item.undo[i] = todoItems[i].textContent;
   }
- 
-  const doneItems = doneList.getElementsByTagName("li");
+  const doneItems = doneList.getElementsByTagName("p");
   for (let i = 0; i < doneItems.length; i++) {
-    item.done[i] = doneItems[i];
+    item.done[i] = doneItems[i].textContent;
   }
-  console.log(item);
-  console.log(JSON.stringify(item));
+
   storage.setItem("todoList", JSON.stringify(item));
+
 
 
   //
 });
 
-//登録メソッド
+/* 登録メソッド */
 const addTask = (task) => {
   const todo = document.createTextNode(task); //入力値取得
   const litag = document.createElement("li"); //liタグを作る準備
@@ -74,20 +76,18 @@ const addTask = (task) => {
   const ptag = document.createElement("p"); //pタグを作る準備
   const btns = document.createElement("div"); //btnレイアウトを作る準備
   btns.setAttribute("class", "buttons"); //btnのレイアウトを作る為のクラス付与
-  /*完了ボタン*/
+  //完了ボタン
   const donebtn = document.createElement("button"); //buttonタグ作成
   donebtn.setAttribute("class", "js-done-btn"); //classを付与
   donebtn.innerHTML = "完了"; //buttonタグの中身文字
-  //完了ボタンのイベント
   donebtn.addEventListener("click", (event) => {
     event.preventDefault();
     doneTask(donebtn);
   });
-  /*削除ボタン*/
+  //削除ボタン
   const delbtn = document.createElement("button");
   delbtn.setAttribute("class", "js-del-btn");
   delbtn.innerHTML = "削除";
-  //削除ボタンのイベント
   delbtn.addEventListener("click", (event) => {
     event.preventDefault();
     deleteTask(delbtn);
@@ -100,6 +100,7 @@ const addTask = (task) => {
   litag.appendChild(btns); //liタグの子要素にbtnsクラスを持つdivタグを追加
   todoList.appendChild(litag); //ulタグの子要素にliタグを追加
 };
+
 /*完了ボタンメソッド*/
 const doneTask = (btn) => {
   btn.innerHTML = "戻す"; //完了ボタンを戻すボタンに変更
@@ -110,6 +111,7 @@ const doneTask = (btn) => {
   const chosenTask = btn.closest("li"); //移動するリストを選択
   doneList.appendChild(chosenTask); //Doneリストに移動
 };
+
 /*戻すボタンメソッド*/
 const returnTask = (btn) => {
   btn.innerHTML = "完了"; //戻すボタンを完了ボタンに変更
@@ -120,6 +122,7 @@ const returnTask = (btn) => {
   const chosenTask = btn.closest("li"); //移動するリストを選択
   todoList.appendChild(chosenTask); //Doneリストに移動
 };
+
 /*削除ボタンメソッド*/
 const deleteTask = (delbtn) => {
   const chosenTask = delbtn.closest("li"); //削除するリストを選択
