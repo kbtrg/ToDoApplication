@@ -6,7 +6,7 @@ const taskValue = document.getElementById("js-todo-ttl"); //入力情報取得
 const taskAddBtn = document.getElementById("js-register-btn"); //「登録する」ボタン
 const todoList = document.getElementById("js-todo-list"); //ulタグ取得
 const doneList = document.getElementById("js-done-list"); //ulタグ取得
-//const addErrorMes = document.getElementsByClassName("add-error-mes"); //テキストエラーメッセージ
+const addErrorMes = document.getElementsByClassName("add-error-mes"); //テキストエラーメッセージ
 
 /* ストレージデータ用の変数 */
 const storage = localStorage; //localStorageをstorageに代入
@@ -44,8 +44,9 @@ taskAddBtn.addEventListener("click", (event) => {
     const task = taskValue.value;
     addTask(task);
     taskValue.value = ""; //入力値の初期化
+    addErrorMes[0].classList.add("js-add-error-mes-none");
   } else {
-    //addErrorMes.classList.remove("js-add-error-mes-none");
+    addErrorMes[0].classList.remove("js-add-error-mes-none");
   }
 });
 
@@ -85,7 +86,6 @@ const addTask = (task) => {
     event.preventDefault();
     deleteTask(delbtn);
   });
-  console.log("saved");
   saveStorage();
 };
 
@@ -119,7 +119,6 @@ const deleteTask = (delbtn) => {
   chosenTask.remove();
   saveStorage();
 };
-
 
 /* ストレージで保存 */
 const saveStorage = () => {
