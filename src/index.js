@@ -11,7 +11,7 @@ const doneList = document.getElementById("js-done-list"); //ulタグ取得
 /* ストレージデータ用の変数 */
 const storage = localStorage; //localStorageをstorageに代入
 let parseList = {}; //パース先の空オブジェクト
-let parseTr = false;
+let parseDoneList = false;
 
 //---------------------------------------------------------------------------------------------------
 
@@ -28,12 +28,13 @@ document.addEventListener("DOMContentLoaded", (event) => {
   for (let i = 0; i < parseList.undo.length; i++) {
     addTask(parseList.undo[i]); //Undoリストに入れる
   }
-  parseTr = true; //UndoリストからDoneリストへ送るトリガー
+  parseDoneList = true; //UndoリストからDoneリストへ送るトリガー
   for (let i = 0; i < parseList.done.length; i++) {
     addTask(parseList.done[i]); //一旦Undoリストに入れて、、
   }
-  parseTr = false;
+  parseDoneList = false;
 });
+
 
 /* 登録するボタンのイベント */
 taskAddBtn.addEventListener("click", (event) => {
@@ -46,31 +47,6 @@ taskAddBtn.addEventListener("click", (event) => {
   } else {
     //addErrorMes.classList.remove("js-add-error-mes-none");
   }
-
-  /* ローカルストレージで保存 */
-  //今は登録するボタン押下時に実行されるが、
-  //あとでリロード時、ブラウザ終了時に実行されるように書き換える.
-
-  const item = {
-    undo: [],
-    done: []
-  };
-  
-  
-  const todoItems = todoList.getElementsByTagName("p");
-  for (let i = 0; i < todoItems.length; i++) {
-    item.undo[i] = todoItems[i].textContent;
-  }
-  const doneItems = doneList.getElementsByTagName("p");
-  for (let i = 0; i < doneItems.length; i++) {
-    item.done[i] = doneItems[i].textContent;
-  }
-
-  storage.setItem("todoList", JSON.stringify(item));
-
-
-
-  //
 });
 
 /* 登録メソッド */
@@ -85,12 +61,10 @@ const addTask = (task) => {
   const donebtn = document.createElement("button"); //buttonタグ作成
   donebtn.setAttribute("class", "js-done-btn"); //classを付与
   donebtn.innerHTML = "完了"; //buttonタグの中身文字
-  
   //削除ボタン
   const delbtn = document.createElement("button");
   delbtn.setAttribute("class", "js-del-btn");
   delbtn.innerHTML = "削除";
-  
   //登録後の要素の追加(ul>li>p構造を作る)
   ptag.appendChild(todo); //pタグの子要素に入力値を追加
   litag.appendChild(ptag); //liタグの子要素にpタグを追加
@@ -98,8 +72,8 @@ const addTask = (task) => {
   btns.appendChild(delbtn); //btnsの子要素にdelbtnを追加
   litag.appendChild(btns); //liタグの子要素にbtnsクラスを持つdivタグを追加
   todoList.appendChild(litag); //ulタグの子要素にliタグを追加
-  
-  if(parseTr === true){
+  //ボタンメソッドの設定
+  if(parseDoneList === true){
     doneTask(donebtn);
   } else{
     donebtn.addEventListener("click", (event) => {
@@ -111,6 +85,8 @@ const addTask = (task) => {
     event.preventDefault();
     deleteTask(delbtn);
   });
+  console.log("saved");
+  saveStorage();
 };
 
 /*完了ボタンメソッド*/
@@ -122,6 +98,7 @@ const doneTask = (btn) => {
   });
   const chosenTask = btn.closest("li"); //移動するリストを選択
   doneList.appendChild(chosenTask); //Doneリストに移動
+  saveStorage();
 };
 
 /*戻すボタンメソッド*/
@@ -133,10 +110,30 @@ const returnTask = (btn) => {
   });
   const chosenTask = btn.closest("li"); //移動するリストを選択
   todoList.appendChild(chosenTask); //Doneリストに移動
+  saveStorage();
 };
 
 /*削除ボタンメソッド*/
 const deleteTask = (delbtn) => {
   const chosenTask = delbtn.closest("li"); //削除するリストを選択
   chosenTask.remove();
+  saveStorage();
+};
+
+
+/* ストレージで保存 */
+const saveStorage = () => {
+  let item = {
+    undo: [],
+    done: []
+  };
+  let todoItems = todoList.getElementsByTagName("p");
+  for (let i = 0; i < todoItems.length; i++) {
+    item.undo[i] = todoItems[i].textContent;
+  }
+  let doneItems = doneList.getElementsByTagName("p");
+  for (let i = 0; i < doneItems.length; i++) {
+    item.done[i] = doneItems[i].textContent;
+  }
+  storage.setItem("todoList", JSON.stringify(item));
 };
