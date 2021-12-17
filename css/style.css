@@ -26,7 +26,18 @@ a {
   cursor: pointer;
 }
 
-.container {
+.flex {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.text-center {
+  margin: 0 auto;
+}
+
+.todo-list {
   margin: 　10px auto;
   width: 100vw;
   display: -webkit-box;
@@ -34,18 +45,18 @@ a {
   display: -ms-flexbox;
   display: flex;
 }
-.container .box {
+.todo-list .box {
   margin: 3%;
   padding: 10px;
   width: 45%;
 }
-.container .task-box {
+.todo-list .task-box {
   background: #dfd;
 }
-.container .done-box {
+.todo-list .done-box {
   background: #ddf;
 }
-.container .list {
+.todo-list .list {
   font-size: 1.2rem;
   display: -webkit-box;
   display: -webkit-flex;
@@ -58,18 +69,15 @@ a {
   background: #fff;
   margin: 5px 0;
 }
-.container button {
+.todo-list button {
   margin: 0 3px;
   font-size: 0.5rem;
-}
-
-.register-box {
-  text-align: center;
 }
 
 .add-error-mes {
   color: red;
   text-align: center;
+  font-weight: bold;
 }
 
 .js-add-error-mes-none {
@@ -79,4 +87,4 @@ a {
 .header__ttl {
   background: #ddd;
   margin: 20px 0;
-}/*# sourceMappingURL=main.css.map */
+}/*# sourceMappingURL=style.css.map */
