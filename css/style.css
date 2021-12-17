@@ -74,6 +74,14 @@ a {
   font-size: 0.5rem;
 }
 
+.register-box {
+  display: inline-block;
+}
+
+.clear-btn {
+  display: inline-block;
+}
+
 .add-error-mes {
   color: red;
   text-align: center;
