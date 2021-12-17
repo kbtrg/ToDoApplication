@@ -31,10 +31,10 @@ a {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-}
-
-.text-center {
-  text-align: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 .todo-list {
@@ -74,12 +74,8 @@ a {
   font-size: 0.5rem;
 }
 
-.register-box {
-  display: inline-block;
-}
-
 .clear-btn {
-  display: inline-block;
+  margin-left: 50px;
 }
 
 .add-error-mes {

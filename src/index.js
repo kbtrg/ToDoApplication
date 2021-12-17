@@ -4,6 +4,7 @@
 /* 先に取得しておくデータ群 */
 const taskValue = document.getElementById("js-todo-ttl"); //入力情報取得
 const taskAddBtn = document.getElementById("js-register-btn"); //「登録する」ボタン
+const clearBtn = document.getElementsByClassName("clear-btn")[0]; //「クリア」ボタン
 const todoList = document.getElementById("js-todo-list"); //ulタグ取得
 const doneList = document.getElementById("js-done-list"); //ulタグ取得
 const addErrorMes = document.getElementsByClassName("add-error-mes"); //テキストエラーメッセージ
@@ -35,7 +36,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
   parseDoneList = false;
 });
 
-
 /* 登録するボタンのイベント */
 taskAddBtn.addEventListener("click", (event) => {
   event.preventDefault();
@@ -48,6 +48,13 @@ taskAddBtn.addEventListener("click", (event) => {
   } else {
     addErrorMes[0].classList.remove("js-add-error-mes-none");
   }
+});
+
+/* クリアボタンのイベント */
+clearBtn.addEventListener("click", (event) => {
+  event.preventDefault();
+  deleteAllTask();
+  deleteStorage("todoList");
 });
 
 /* 登録メソッド */
@@ -73,7 +80,7 @@ const addTask = (task) => {
   btns.appendChild(delbtn); //btnsの子要素にdelbtnを追加
   litag.appendChild(btns); //liタグの子要素にbtnsクラスを持つdivタグを追加
   todoList.appendChild(litag); //ulタグの子要素にliタグを追加
-  //ボタンメソッドの設定
+  //ボタンのイベント設定
   if(parseDoneList === true){
     doneTask(donebtn);
   } else{
@@ -136,3 +143,18 @@ const saveStorage = () => {
   }
   storage.setItem("todoList", JSON.stringify(item));
 };
+
+/* クリアボタンでDOMの全消去 */
+const deleteAllTask = () => {
+  while(todoList.lastChild){
+    todoList.removeChild(todoList.lastChild);
+  }
+  while(doneList.lastChild){
+    doneList.removeChild(doneList.lastChild);
+  }
+};
+
+/* ストレージの消去 */
+const deleteStorage = (key) => {
+  storage.removeItem(key); //渡されたkeyのストレージを消去
+}
