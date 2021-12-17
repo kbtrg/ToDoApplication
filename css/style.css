@@ -34,7 +34,7 @@ a {
 }
 
 .text-center {
-  margin: 0 auto;
+  text-align: center;
 }
 
 .todo-list {
